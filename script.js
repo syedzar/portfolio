@@ -77,7 +77,7 @@
         { label: 'Overview', text: 'A custom 16-bit CPU built from scratch in VHDL for a computer organization course, later extended into a small hardware/software verification system.' },
         { label: 'How it works', text: 'The CPU is assembled from 14 VHDL modules (ALU, register file, instruction and data memory, control logic, and program-counter logic), supporting a custom instruction set (ADD, ADDI, SUB, SUBI, AND, OR, SLT, LW, SW, BNE, JMP). A UART transmitter sits on top of it, so the CPU\u2019s final register state can be serialized and sent to a host machine byte by byte.' },
         { label: 'Verification', text: 'Datapath and control behaviour were checked with VHDL testbenches and waveform analysis across 32 functional test cases, all passing. The full pipeline (CPU \u2192 register-dump FSM \u2192 UART \u2192 host-side C program \u2192 comparison) currently passes 10/10 checks in Vivado simulation.' },
-        { label: 'Status', text: 'UART communication is validated in simulation; testing it over an actual serial link to real FPGA hardware is next, once board time is available.' }
+        { label: 'Status', text: 'UART communication was validated in simulation. Testing it over a real serial link on the FPGA board is a possible future extension.' }
       ],
       links: [ { label: 'GitHub', url: 'https://github.com/syedzar/VHDL-CPU-UART-INTERFACE' } ]
     },
