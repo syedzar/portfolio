@@ -208,6 +208,23 @@
         <p>A mix of hardware, software, and mechanical work. Each one links out to more detail: GitHub where the repo is public, and a deep dive with the full story either way.</p>
 
         <div class="project-entry">
+          <div class="pc-media"><img src="assets/images/esp32-node-circuit.png" alt="ESP32 wired to a BMP180 sensor over I2C in the Wokwi simulator"></div>
+          <div class="pc-body">
+            <div class="project-head">
+              <div class="project-head-left"><span class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8.5a15 15 0 0 1 20 0M5 12a10 10 0 0 1 14 0M8.5 15.5a5 5 0 0 1 7 0"></path><circle cx="12" cy="19" r="1"></circle></svg></span><h3>ESP32 Wireless Sensor Node</h3></div>
+              <span class="tag">embedded / IoT</span>
+            </div>
+            <div class="project-date">Sept 2026</div>
+            <p>FreeRTOS firmware for an ESP32 that reads a sensor over I2C and sends each reading to a REST API over Wi-Fi, with sampling and networking split across two cores so slow uploads never delay a reading. Delivered 50 of 51 readings (98%) in a simulated run.</p>
+            <div class="project-tech">C++ · FreeRTOS · ESP32 · I2C · Wi-Fi/HTTPS · PlatformIO</div>
+            <div class="project-links">
+              <button class="link-btn" data-deepdive="espnode">Deep dive</button>
+              <a href="https://github.com/syedzar/ESP-SENSOR-NODE" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-entry">
           <div class="pc-media contain"><img src="assets/images/htap-overview.jpg" alt="Swagger UI for the Hardware Test Analytics Platform API, showing the endpoint list and the statistics response"></div>
           <div class="pc-body">
             <div class="project-head">

@@ -36,6 +36,23 @@
 
   /* ---------- Deep dive modal ---------- */
   var deepDives = {
+    espnode: {
+      title: 'ESP32 Wireless Sensor Node',
+      tag: 'EMBEDDED · IOT · RTOS',
+      sections: [
+        { label: 'Overview', text: 'Firmware for an ESP32 that reads temperature and pressure from a sensor over I2C and sends each reading as JSON to a REST API over Wi-Fi.' },
+        { label: 'The problem', text: 'The simple approach is a single loop: read the sensor, send the data, wait, repeat. But Wi-Fi calls can be slow, and while the loop is stuck waiting on the network it isn’t reading the sensor, so readings arrive late or get skipped.' },
+        { label: 'How it works', text: 'The work is split into two FreeRTOS tasks on the ESP32’s two cores. The sensor task reads every 5 seconds and drops each reading into a queue without ever waiting on the network. The network task takes readings off the queue, keeps Wi-Fi connected, and POSTs them over HTTPS. The queue holds up to 10 readings (about 50 seconds), so a slow network doesn’t lose data.' },
+        { label: 'Results', text: 'Tested in the Wokwi ESP32 simulator, which simulates the real chip, the I2C bus, and Wi-Fi with a live internet connection. Over a 4-minute run, 50 of 51 readings (98%) reached the API. The one miss was a POST that failed with a TLS connection error; the firmware logged it and kept sampling on schedule.' },
+        { label: 'Status', text: 'Validated in simulation. Next steps are retrying failed POSTs, running it on a physical ESP32 with a BME280 sensor, and sending readings to the Hardware Test Analytics Platform instead of a test webhook.' }
+      ],
+      media: [
+        { type: 'image', src: 'assets/images/esp32-node-simulator.png', caption: 'The simulated circuit, with sensor values set by the sliders' },
+        { type: 'image', src: 'assets/images/esp32-node-serial.png', caption: 'Serial output: each reading followed by its HTTP 200 response' },
+        { type: 'image', src: 'assets/images/esp32-node-request.png', caption: 'A reading received by the API as JSON (IP and URL redacted)' }
+      ],
+      links: [ { label: 'GitHub', url: 'https://github.com/syedzar/ESP-SENSOR-NODE' } ]
+    },
     htap: {
       title: 'Hardware Test Analytics Platform',
       tag: 'BACKEND \u00b7 DATA \u00b7 TESTING',
