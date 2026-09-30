@@ -289,8 +289,16 @@
     });
   });
 
-  var startRoute = (window.location.hash || '').replace('#','');
+  /* Deep links: '#projects/<key>' opens that project's deep dive on load
+     (for example '#projects/rover'), so a resume can link straight to it. */
+  var startHash = (window.location.hash || '').replace('#','').split('/');
+  var startRoute = startHash[0];
+  var startProject = startHash[1];
   showRoute(startRoute || 'home');
+  if(startProject && deepDives[startProject]){
+    showRoute('projects');
+    openModal(startProject);
+  }
 
   /* ---------- Circuit-trace background ---------- */
   var canvas = document.getElementById('stars');
