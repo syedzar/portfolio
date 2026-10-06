@@ -45,12 +45,14 @@
         { label: 'How it works', text: 'A Python pipeline downloads 7 years of hourly IESO demand and Toronto temperatures from the Open-Meteo API, then builds 16 features: time of day and year, day of the week, holidays, demand from 24 hours and one week earlier, recent averages, and how far the temperature is above or below 18°C. Every feature has to be known 24 hours ahead, and Pytest unit tests check that no future data leaks in. An XGBoost model trains on 2019–2024.' },
         { label: 'Results', text: 'Tested on all of 2025, a year the model never saw: 3.4% average error (580 MW), with 23% smaller misses than guessing “same as yesterday” (4.6%) and far better than “same as last week” (7.0%). Yesterday’s demand and temperature drive most predictions. Errors are largest on summer afternoons, peaking in July, and the model tends to underestimate heat-wave peaks.' },
         { label: 'Dashboard', text: 'An interactive Streamlit and Plotly dashboard compares predictions with actual demand for any date range, ranks the inputs the model relies on using permutation feature importance, and shows when the model is least accurate.' },
+        { label: 'Excel and Power BI', text: 'A Python script exports all 8,751 tested hours to an Excel workbook: the data as an Excel Table, a summary sheet that works out the average error overall, by month, and by hour with AVERAGEIFS and COUNTIFS formulas, a heatmap of error for every hour of the day in every month using conditional formatting, and a chart of the peak-demand week. The formulas were recalculated in Excel and match the Python results. The same data is exported as a CSV with Power Query steps and DAX measures written for a Power BI report, which is the next step.' },
         { label: 'Limitations', text: 'The model is given the temperature that actually happened for the hour it predicts, which assumes a perfect weather forecast, so real-world error would be somewhat higher. Next steps are using weather forecasts, averaging several Ontario cities, and testing across multiple years.' }
       ],
       media: [
         { type: 'image', src: 'assets/images/ontario-demand-dashboard.png', caption: 'The dashboard: headline results and prediction vs reality during the June 2025 heat wave' },
         { type: 'image', src: 'assets/images/ontario-demand-peak-week.png', caption: 'Peak-demand week of 2025: the model (dashed) against the “same as yesterday” guess' },
-        { type: 'image', src: 'assets/images/ontario-demand-errors.png', caption: 'When the model is least accurate, by hour of day and by month' }
+        { type: 'image', src: 'assets/images/ontario-demand-errors.png', caption: 'When the model is least accurate, by hour of day and by month' },
+        { type: 'image', src: 'assets/images/ontario-demand-excel-heatmap.png', caption: 'Excel heatmap of average error by hour of day and month, where every cell is an AVERAGEIFS formula' }
       ],
       links: [ { label: 'GitHub', url: 'https://github.com/syedzar/Ontario-Electricity-Demand-Forecaster' } ]
     },
