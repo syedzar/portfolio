@@ -93,6 +93,21 @@
       ],
       links: [ { label: 'GitHub', url: 'https://github.com/syedzar/Hardware-Test-Analytics-Platform' } ]
     },
+    projectsearch: {
+      title: 'Project Search',
+      tag: 'SEARCH · EMBEDDINGS · EVALUATION',
+      sections: [
+        { label: 'Overview', text: 'A search page where you ask a question about my engineering projects and get the three most relevant passages from their READMEs and design docs, each with a score and a link to its source. It is the retrieval half of a RAG system: it finds passages but never writes an answer.' },
+        { label: 'Why retrieval only', text: 'A hosted LLM needs an API key, and a static GitHub Pages site can’t keep one secret. A passage shown word for word also can’t contain an invented claim about my projects, and every result links to its source so a reader can check it.' },
+        { label: 'How it works', text: 'A Python script reads each document from GitHub at its latest commit, splits it on Markdown headings into chunks of at most 220 tokens, and embeds them with all-MiniLM-L6-v2. The page runs the same quantized ONNX model in the browser with Transformers.js and ranks all 137 chunks by cosine similarity, so no vector database or server is needed.' },
+        { label: 'Results', text: 'On 29 labelled questions, a correct passage ranked first 21 times (72.4%) and appeared in the top 3 22 times (75.9%). The labels were written before the first run and name sections rather than chunks. Five out-of-scope questions all scored below every answerable one, so the page warns about weak matches. 29 questions is a small test set, so these numbers are rough.' },
+        { label: 'What the failures show', text: 'The Hardware project has 73 of the 137 chunks and crowds out the others. Questions that use different words from the docs miss, and exact details such as compiler flags are weak spots where keyword search would do better. In Chrome, all 29 questions returned the same top 3 in the same order as the Python evaluation.' }
+      ],
+      media: [
+        { type: 'image', src: 'assets/images/project-search-results.png', caption: 'The live page returning the top passages for a question about slow networks' }
+      ],
+      links: [ { label: 'Live demo', url: 'https://syedzar.github.io/project-search/' }, { label: 'GitHub', url: 'https://github.com/syedzar/project-search' } ]
+    },
     vhdlcpu: {
       title: 'VHDL CPU & UART Interface',
       tag: 'DIGITAL HARDWARE · COMPUTER ARCHITECTURE',
