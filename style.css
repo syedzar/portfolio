@@ -602,6 +602,7 @@ html.light .terminal-bar span{ box-shadow: none; }
   font-size: 12px;
   margin-top: 4px;
 }
+.exp-head .exp-date{ margin-top: 0; }
 
 .exp-entry ul{
   margin: 12px 0 0 0;
