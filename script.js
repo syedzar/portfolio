@@ -93,6 +93,24 @@
       ],
       links: [ { label: 'GitHub', url: 'https://github.com/syedzar/Hardware-Test-Analytics-Platform' } ]
     },
+    rcqa: {
+      title: 'Resident Care Q&A Assistant',
+      tag: 'DATA ENGINEERING · PRIVACY · RAG',
+      sections: [
+        { label: 'Overview', text: 'A question-and-answer tool for staff in an Ontario long-term care home. It answers from three places: a resident’s record, Ontario’s long-term care law (the Fixing Long-Term Care Act and O. Reg. 246/22), and clinical guidance (RNAO and Public Health Ontario guidelines and 25 drug labels). Every answer cites its source with a link, and when the sources don’t cover a question it says “I don’t know” instead of guessing. All resident data is synthetic (Synthea); no real patient data is used.' },
+        { label: 'Data pipeline', text: 'A Databricks job (PySpark and Delta tables) runs weekly in five steps: bronze keeps every raw file exactly as it arrived, silver cleans and types it, gold builds one record per resident, and the last two steps split every source into citable chunks and embed them. Every step writes its data-quality checks (row counts, missing values, duplicates, broken links between tables) to a results table, and an error stops the job before the next step reads bad data. One check was added after a real bug: on serverless compute a Spark option was silently ignored and each JSON file was split into ~140 rows, so the job now fails if a file doesn’t become exactly one row.' },
+        { label: 'Privacy', text: 'Names, addresses, ID numbers, and exact birth dates are removed, and each resident gets a short ID. Before anything is searchable, every chunk is scanned for identifiers, and the job fails on any leak: the latest run found 0 in 10,155 chunks. A planted test record containing one resident’s original identifiers runs through the same path on every run, and the job fails unless every detector catches it. In search, a question about a resident can only retrieve that resident’s record, because the filter is applied inside the vector database (Qdrant).' },
+        { label: 'Answers', text: 'A local LLM (qwen2.5:3b through Ollama) writes the answer from the retrieved sources, so resident data never leaves the machine. “I don’t know” is enforced in code, not just requested in the prompt: if no source is close enough to the question the model is never called, and an answer without a valid citation is refused. After generation, each sentence is compared with the source it cites, and wrong source numbers are corrected.' },
+        { label: 'Results', text: 'A 60-question test set (25 about residents, 25 about the law and guidelines, 10 that must be refused) is tracked in MLflow on Databricks. Of 4 chunk sizes, 200-word chunks found the right source first most often (MRR 0.967). Retrieval was already 100% in the top 5, so the remaining misses came from the model: changing one prompt rule raised correctly cited answers from 86% to 94–96% across two runs (resident questions 80% to 100%), with 0% unsupported answers and all 10 must-refuse questions refused. Turning the citation check off raised unsupported answers to 4.2%.' },
+        { label: 'Limits', text: 'The test set is small (one question is 2 points, and two identical runs differed by one question). The 3B model sometimes cites a law’s own paragraph number instead of a source label and the answer is refused, and one answer named a different screening tool than the guideline: grounded, but wrong. Everything runs on free tiers and one laptop; it is a demo, not a deployed clinical tool.' }
+      ],
+      media: [
+        { type: 'image', src: 'assets/images/rcqa-answer.png', caption: 'An answer citing the warfarin drug label, with a link to the original source' },
+        { type: 'image', src: 'assets/images/rcqa-summary.png', caption: 'A handover summary for synthetic resident 204, each point citing a section of the record' },
+        { type: 'image', src: 'assets/images/rcqa-refusal.png', caption: 'An off-topic question is refused before the model is called (best source score 0.47, below the 0.65 cut-off)' }
+      ],
+      links: [ { label: 'GitHub', url: 'https://github.com/syedzar/Resident-QA-Assistant' } ]
+    },
     projectsearch: {
       title: 'Project Search',
       tag: 'SEARCH · EMBEDDINGS · EVALUATION',
